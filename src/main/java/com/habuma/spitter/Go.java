@@ -3,6 +3,8 @@ package com.habuma.spitter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,5 +36,31 @@ public class Go {
         }catch (SQLException e){
 
         }
+
+         /*  try with JNDI */
+
+/*        try {
+            DataSource dataSourceJNDI = (DataSource) new InitialContext().lookup("/jdbc/SpitterDS");
+
+            try(Connection connection = dataSourceJNDI.getConnection()){
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery(query);
+
+                if (rs != null){
+                    while (rs.next()){
+                        System.out.println(rs.getString("info"));
+                    }
+                }
+            }catch (SQLException e){
+
+            }
+
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }*/
+
+
+
+
     }
 }
