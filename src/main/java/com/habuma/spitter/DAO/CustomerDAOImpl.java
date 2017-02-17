@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by головченко on 14.02.2017.
@@ -33,7 +35,6 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport {
     private void initialize() {
         setDataSource(dataSource);
     }
-
 
     public Customer findByCustomerId(int custId){
 
@@ -75,5 +76,16 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport {
         int total = getSimpleJdbcTemplate().queryForInt(sql);
 
         return total;
+    }
+
+    public void addCustomer(Customer customer){
+
+        String sql = "insert into customer (CUST_ID,NAME,AGE) VALUES (:cust_id,:name,:age)";
+
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("name",customer.getName());
+        params.put("age", customer.getAge());
+        params.put("cust_id",customer.getCust_id());
+        getSimpleJdbcTemplate().update(sql,params);
     }
 }

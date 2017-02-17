@@ -91,6 +91,13 @@ public class Go {
         CustomerDAOImpl customerDAO = (CustomerDAOImpl)context.getBean("customerDAOImpl");
 
         //customerDAO.setJdbcTemplate((JdbcTemplate)context.getBean("jdbcTemplate"));
+        Customer customer = new Customer();
+        customer.setName("Oleg");
+        customer.setAge(55);
+        customer.setCust_id(5);
+
+        //System.out.println(customer.getAge());
+        customerDAO.addCustomer(customer);
         System.out.println(customerDAO.findTotalCustomer());
 /*        Customer customer = customerDAO.findByCustomerId(1);
         System.out.println(customer);*/
