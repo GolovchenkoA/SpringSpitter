@@ -11,16 +11,20 @@
        <context:component-scan base-package="com.habuma.spitter"/>
 
 
+
       <!-- Placeholder for jdbc settings (connect to database) -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="datasource.properties" />
     </bean>
 
-
-<!--    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+<!--    <bean id="dataSourceJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/jdbc/SpitterDS"/>
+        <property name="resourceRef" value="true"/>
+        <property name="expectedType" value="javax.sql.DataSource"/>
     </bean>-->
+
+     <!--JDBC Connector  -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${spring.datasource.driver-class-name}" />
@@ -35,10 +39,16 @@
                      jndi-name="/jdbc/SpitterDS"
                      resource-ref="true" />-->
 
-
-
-<!--    <bean id="jdbcTemplate"
+    <bean id="SimplejdbcTemplate"
           class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
         <constructor-arg ref="dataSource" />
-    </bean>-->
+    </bean>
+
+
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource" />
+    </bean>
+
+
 </beans>

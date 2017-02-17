@@ -1,7 +1,14 @@
 package com.habuma.spitter;
 
+import com.habuma.spitter.DAO.CustomerDAO;
+import com.habuma.spitter.DAO.CustomerDAOImpl;
+import com.habuma.spitter.DAO.CustomerRowMapper;
+import com.habuma.spitter.DAO.SpringSpitterDBInfo;
+import com.habuma.spitter.model.Customer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +25,12 @@ public class Go {
 
     public static void main(String[] args) {
 
-        String query = "SELECT info FROM INFORMATION";
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+  //Connect to database via JDBC Connection
+
+
+ /*       String query = "SELECT info FROM INFORMATION";
 
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         DataSource dataSource = (DataSource)context.getBean("dataSource");
@@ -35,7 +47,9 @@ public class Go {
             }
         }catch (SQLException e){
 
-        }
+        }*/
+
+
 
          /*  try with JNDI */
 
@@ -59,6 +73,31 @@ public class Go {
             e.printStackTrace();
         }*/
 
+
+
+        //CustomerRowMapper customerRowMapper = new CustomerRowMapper();
+/*        CustomerRowMapper customerRowMapper = (CustomerRowMapper)context.getBean("jdbcTemplate");
+        System.out.println(customerRowMapper.findCustomerNameById(1));*/
+       /* System.out.println(customerRowMapper.findAll());*/
+
+
+/*
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+*/
+        //SimpleJdbcTemplate jdbcTemplate = (SimpleJdbcTemplate)context.getBean("jdbcTemplate");
+
+
+        //CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+        CustomerDAOImpl customerDAO = (CustomerDAOImpl)context.getBean("customerDAOImpl");
+
+        //customerDAO.setJdbcTemplate((JdbcTemplate)context.getBean("jdbcTemplate"));
+        System.out.println(customerDAO.findTotalCustomer());
+/*        Customer customer = customerDAO.findByCustomerId(1);
+        System.out.println(customer);*/
+
+/*        JdbcTemplate jdbcTemplate = (JdbcTemplate)context.getBean("jdbcTemplate");
+        jdbcTemplate.execute("create table employee (id int, name varchar(45))");
+        jdbcTemplate.execute("insert into employee (id, name) values (1, 'A')");*/
 
 
 
